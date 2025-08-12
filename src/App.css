@@ -38,13 +38,18 @@
 }
 
 .btn-menu {
+  display: block;
+  text-align: center;
+  line-height: 200px;
   background-color: #61dafb;
   width: 50%;
   height: 200px;
   border-radius: 20px;
   font-size: 36px;
   font-weight: bold;
-  margin-top: 75px;
+  margin: 75px auto 0;       /* Centra horizontalmente */
+  color: black;
+  text-decoration: none;     /* Quita el subrayado de <a> */
 }
 
 .btn-menu:hover {
