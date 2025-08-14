@@ -1,20 +1,22 @@
-import logo from '../assets/react.svg'
+import logo from '../assets/logoapp-oficial.png'
 import '../App.css';
 
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { Button } from "@/components/ui/button"
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
 
-        <Link to="/new" className="btn-menu">
+        <Button className="btn-menu" onClick={() => navigate("/new")}>
           Jugar
-        </Link>
-        <Link to="/history" className="btn-menu">
+        </Button>
+        <Button className="btn-menu" onClick={() => navigate("/history")}>
           Historial de juegos
-        </Link>
+        </Button>
       </header>
     </div>
   );

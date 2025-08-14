@@ -7,11 +7,7 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+
 
 .App-header {
   background-color: #282c34;
@@ -28,6 +24,13 @@
   color: #61dafb;
 }
 
+/*
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -36,24 +39,86 @@
     transform: rotate(360deg);
   }
 }
+  */
 
 .btn-menu {
   display: block;
   text-align: center;
   line-height: 200px;
-  background-color: #61dafb;
+  background: linear-gradient(90deg, #3749c0, #055884);
+  color: white;
   width: 50%;
   height: 200px;
   border-radius: 20px;
   font-size: 36px;
   font-weight: bold;
-  margin: 75px auto 0;       /* Centra horizontalmente */
-  color: black;
-  text-decoration: none;     /* Quita el subrayado de <a> */
+  margin: 75px auto 0;
+  text-decoration: none;
 }
 
 .btn-menu:hover {
   cursor: pointer;
-  background-color: #04495c;
+  box-shadow: 
+    0 0 2px gray,
+    0 0 15px #30c1e9;
+
   color: white;
 }
+
+.input-name {
+  display: block;
+  text-align: center;
+  line-height: 200px;
+  background: linear-gradient(90deg, #e47154, #ec9c60);
+  color: white;
+  width: 70%;
+  height: 250px;
+  border-radius: 20px;
+  font-size: 36px;
+  font-weight: bold;
+  margin: 125px auto 0;
+  text-decoration: none;
+}
+
+.input-name:hover {
+  color: white;
+  box-shadow: 
+    0 0 2px gray,
+    0 0 15px #fff;
+}
+
+.input-names-container {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  padding: 15px 20px;
+  text-align: center;
+  font-size: 32px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  z-index: 1000;
+}
+
+.navlinks {
+  color: grey;
+}
+
+.navlinks a:hover {
+  color: white;
+  text-shadow: 
+    0 0 5px gray,
+    0 0 20px #fff;
+}
+

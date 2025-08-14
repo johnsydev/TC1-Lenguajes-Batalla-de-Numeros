@@ -6,19 +6,27 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import New from './pages/New.jsx'
+import Navbar from './components/ui/navbar.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <BrowserRouter>
+      <Navbar />
+      <div style={{ paddingTop: '65px' }}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new" element={<New />} />
-      </Routes>    
+        <Route path="/history" element={<New />} />
+      </Routes>
+      </div>
     </BrowserRouter>
   )
 }
+
+export default App
+
 
   /*
   <>
@@ -44,5 +52,3 @@ function App() {
     </p>
   </>
   */
-
-export default App
