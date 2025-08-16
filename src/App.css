@@ -24,6 +24,27 @@
   color: #61dafb;
 }
 
+.playgame {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ingame-stats {
+  width: 33%;
+}
+
+.ingame-section {
+  width: 34%;
+}
+
+.ingame-numberhistory {
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /*
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -47,7 +68,7 @@
   line-height: 200px;
   background: linear-gradient(90deg, #3749c0, #055884);
   color: white;
-  width: 50%;
+  width: 100%;
   height: 200px;
   border-radius: 20px;
   font-size: 36px;
@@ -122,3 +143,60 @@ nav {
     0 0 20px #fff;
 }
 
+.info-container {
+  border-width: 1px;
+  border-color: white;
+  border-radius: 5px;
+  display: flex;
+  width: 100%;
+}
+
+.info-tries, .info-time {
+  width: 50%;
+  padding: 30px 30px;
+  border-width: 1px;
+  border-color: white;
+}
+
+.ingame-numberhistory ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 30%;
+}
+
+.ingame-numberhistory-item {
+  padding: 10px;
+  border: 1px solid white;
+  text-align: center;
+}
+
+.info-tips {
+  padding: 10px;
+  margin-top: 40px;
+}
+
+
+/* STATS */
+.stats-container {
+  border: 1px solid white;
+  border-radius: 25px;
+  margin-bottom: 20px;
+  width: 50%;
+}
+
+.stats-container h1 {
+  text-align: center;
+  font-weight: bold;
+  background: linear-gradient(90deg, #e47154, #ec9c60);
+  border-radius: 25px 25px 0 0;
+  padding: 10px 0 10px 0;
+}
+
+.stats-item {
+  margin-bottom: 10px;
+}
+
+.stats-item-name {
+  font-weight: bold;
+}
