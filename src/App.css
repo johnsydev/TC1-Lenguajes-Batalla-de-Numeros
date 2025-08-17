@@ -32,6 +32,9 @@
 
 .ingame-stats {
   width: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .ingame-section {
@@ -146,7 +149,7 @@ nav {
 .info-container {
   border-width: 1px;
   border-color: white;
-  border-radius: 5px;
+  border-radius: 20px;
   display: flex;
   width: 100%;
 }
@@ -158,11 +161,19 @@ nav {
   border-color: white;
 }
 
+.info-tries {
+  border-radius: 20px 0 0 20px;
+}
+
+.info-time {
+  border-radius: 0 20px 20px 0;
+}
+
 .ingame-numberhistory ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  width: 30%;
+  width: 100%;
 }
 
 .ingame-numberhistory-item {
@@ -185,7 +196,12 @@ nav {
   width: 50%;
 }
 
-.stats-container h1 {
+.numberhistory-container {
+  margin-bottom: 20px;
+  width: 50%;
+}
+
+.title-section {
   text-align: center;
   font-weight: bold;
   background: linear-gradient(90deg, #e47154, #ec9c60);
@@ -193,10 +209,22 @@ nav {
   padding: 10px 0 10px 0;
 }
 
+
 .stats-item {
   margin-bottom: 10px;
+  font-size: 24px;
+  text-align: center;
 }
 
 .stats-item-name {
   font-weight: bold;
+}
+
+.stats-details-player {
+  border-width: 5px 5px 0px 5px;
+}
+
+.game-header {
+  text-align: center;
+  margin-bottom: 50px;
 }

@@ -1,11 +1,12 @@
 import logo from '../assets/react.svg'
 import '../App.css';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { useState, useEffect, useRef } from 'react';
 import { getTip, formatTime } from '@/utils';
+import Player from '@/classes/Player'
 
 function Play() {
   const navigate = useNavigate();
@@ -13,18 +14,23 @@ function Play() {
   //inputs and vars
   const [count, setCount] = useState(0);
   const [guess, setGuess] = useState(null);
-  const [numberInput, setNumberInput] = useState(null);
+  const [numberInput, setNumberInput] = useState("");
+  const inputRef = useRef(null);
 
   //alerts
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
   const [alertTitle, setAlertTitle] = useState("Incorrecto");
 
-  //try
-  const [users, setUsers] = useState([
-    { id: 1, name: "Name 1", tries: [] },
-    { id: 2, name: "Name 2", tries: [] },
+  const location = useLocation();
+
+  const [users, setUsers] = useState(() => [
+    new Player(location.state.player1),
+    new Player(location.state.player2),
   ]);
+
+  const [currentPlayer, setCurrentPlayer] = useState(users[0]);
+
 
   //cronometer
   const [timer, setTimer] = useState(0);
@@ -35,23 +41,28 @@ function Play() {
   useEffect(() => {
     const numero = Math.floor(Math.random() * 100) + 1;
     setGuess(numero);
+    //currentPlayer.addRound();
     startTimer();
     console.log("Número a adivinar:", numero);
+    inputRef.current?.focus();
   }, []);
 
   const handleNumber = () => {
-    if (numberInput == null) return;
+    if (numberInput == null || numberInput == "") return;
     setCount(count + 1);
     if (numberInput == guess)
     {
       setAlertTitle("Correcto!");
+      currentPlayer.addTime(formatTime(timer))
       stopTimer();
     }
     if (!alertVisible) setAlertVisible(true);
-    users[0].tries.push(numberInput);
+    currentPlayer.addTry(numberInput);
 
     const pista = getTip(numberInput, guess);
     setAlertMsg(pista);
+    setNumberInput("");
+    inputRef.current?.focus();
   };
 
   const startTimer = () => {
@@ -76,23 +87,45 @@ function Play() {
   return (
     <div className="App">
       <header className="App-header">
+        <div className="game-header">
+          <h1>Ronda {currentPlayer.getCurrentRound()}</h1>
+          <h2>Turno de: {currentPlayer.name}</h2>
+        </div>
         <div className="playgame">
           <div className="ingame-stats">
             <div className="stats-container">
-              <h1>Estadísticas del juego</h1>
+              <h1 className="title-section">Estadísticas del juego</h1>
               <div className="stats-player">
-                <div className="stats-item stats-item-name">
-                  <span>Jugador: </span>
-                  <span>{users[0].name}</span>
-                </div>
-                
+                {
+                  
+                  users.map((player, index) => (
+                    <div className="stats-details-player">
+                      <div className="stats-item stats-item-name">
+                        <span>Jugador {index+1}: </span>
+                        <span>{player.name}</span>
+                      </div>
+                      
+                      {
+                        users[0].getTries().map((x, count) => (
+                          <>
+                            <div className="stats-item">
+                              <span>Ronda {count+1}: </span>
+                            </div>
+                            <div className="stats-item">
+                              <span>Intentos: {player.getTries()[count].length}</span>
+                            </div>
+                            <div className="stats-item">
+                              <span>Tiempo: {player.getTimes()[count]}</span>
+                            </div>
+                            <hr />
+                          </>
+                        ))
+                      }
 
-              </div>
-              <div className="stats-player">
-                <div className="stats-item stats-item-name">
-                  <span>Jugador: </span>
-                  <span>{users[0].name}</span>
-                </div>
+                    </div>
+                  ))
+
+                }
               </div>
 
             </div>
@@ -112,7 +145,7 @@ function Play() {
 
             </div>
 
-            <Input className="btn-menu btn-play" placeholder="Número" onChange={(e) => setNumberInput(e.target.value)} />
+            <Input className="btn-menu btn-play" ref={inputRef} placeholder="Número" value={numberInput} onChange={(e) => setNumberInput(e.target.value)} />
             <button className="btn-menu btn-play" onClick={handleNumber}>
               Comprobar
             </button>
@@ -120,7 +153,7 @@ function Play() {
             <div className="info-tips">
 
               {alertVisible && (
-                <Alert>
+                <Alert className="bg-transparent text-white border border-white">
                   <AlertTitle>{alertTitle}</AlertTitle>
                   <AlertDescription>
                     {alertMsg}
@@ -132,13 +165,27 @@ function Play() {
           </div>
 
           <div className="ingame-numberhistory">
-            <ul>
-              {
-                users[0].tries.map((tryy, index) => (
+            
+            <div className="numberhistory-container">
+              <h1 className="title-section">Historial</h1>
+              <ul>
+                  
+                {
+                currentPlayer.getCurrentTries().length==0 && (
+                  <li className="ingame-numberhistory-item">No hay historial</li>
+                )
+                }
+
+                {
+                currentPlayer.getCurrentTries().map((tryy, index) => (
                   <li className="ingame-numberhistory-item" key={index}>{tryy}</li>
                 ))
-              }
-            </ul>
+                }
+                  
+              </ul>
+            </div>
+            
+            
           </div>
         </div>
       </header>
