@@ -10,6 +10,17 @@ import Player from '@/classes/Player'
 
 function Play() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.state?.player1) {
+      navigate("/new", { replace: true });
+    }
+  }, [location, navigate]);
+
+  if (!location.state?.player1) {
+    return null; // evita renderizar basura mientras redirige
+  }
 
   //inputs and vars
   const [count, setCount] = useState(0);
@@ -21,8 +32,6 @@ function Play() {
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
   const [alertTitle, setAlertTitle] = useState("Incorrecto");
-
-  const location = useLocation();
 
   const [users, setUsers] = useState(() => [
     new Player(location.state.player1),
@@ -87,10 +96,7 @@ function Play() {
   return (
     <div className="App">
       <header className="App-header">
-        <div className="game-header">
-          <h1>Ronda {currentPlayer.getCurrentRound()}</h1>
-          <h2>Turno de: {currentPlayer.name}</h2>
-        </div>
+        
         <div className="playgame">
           <div className="ingame-stats">
             <div className="stats-container">
@@ -132,7 +138,10 @@ function Play() {
           </div>
 
           <div className="ingame-section">
-
+            <div className="game-header">
+              <h1>Ronda {currentPlayer.getCurrentRound()}</h1>
+              <h2>Turno de: {currentPlayer.name}</h2>
+            </div>
             <div className="info-container">
               <div className="info-tries">
                 <span>Intentos: </span>
@@ -145,8 +154,8 @@ function Play() {
 
             </div>
 
-            <Input className="btn-menu btn-play" ref={inputRef} placeholder="Número" value={numberInput} onChange={(e) => setNumberInput(e.target.value)} />
-            <button className="btn-menu btn-play" onClick={handleNumber}>
+            <Input className="btn-menu btn-game" ref={inputRef} placeholder="Número" value={numberInput} onChange={(e) => setNumberInput(e.target.value)} />
+            <button className="btn-menu btn-game" onClick={handleNumber}>
               Comprobar
             </button>
 
