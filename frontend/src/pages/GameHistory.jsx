@@ -55,7 +55,7 @@ function GameHistory() {
                             <td><span className={game.winner-1==0 ? "textBold" : ""}>{game.players[0].name}</span> <img src={logo} className="versus-logo" alt="logo" /> <span className={game.winner-1==1 ? "textBold" : ""}>{game.players[1].name}</span></td>
                             <td>{game.players[0].tries} <i>vs</i> {game.players[1].tries}</td>
                             <td>{formatTime(game.players[0].time)} <i>vs</i> {formatTime(game.players[1].time)}</td>
-                            <td>{game.players[game.winner - 1].name}</td>
+                            <td>{game.winner!=0 ? game.players[game.winner - 1].name : (<i>Empate</i>)}</td>
                             <td>{formatDate(new Date(game.date))}</td>
                         </tr>
                     ))}

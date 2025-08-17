@@ -60,6 +60,26 @@
   margin-top: 30px;
 }
 
+.game-ended {
+  margin: 80px 0;
+}
+
+.endinfo-container {
+  border: 1px solid white;
+  border-radius: 20px;
+  padding: 30px;
+}
+
+.endinfo-container h1 {
+  font-weight: bold;
+  font-size: 36px;
+  margin-bottom: 50px;
+}
+
+.endinfo-container div {
+  margin-top: 30px;
+}
+
 /*
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -224,7 +244,7 @@ nav {
 /* STATS */
 .stats-container {
   border: 1px solid white;
-  border-radius: 25px;
+  border-radius: 25px 25px 0 0;
   margin-bottom: 20px;
   width: 50%;
 }
@@ -250,12 +270,27 @@ nav {
   text-align: center;
 }
 
+.stats-item-col {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  flex-direction: row;
+}
+
 .stats-item-name {
+  margin-top: 5px;
   font-weight: bold;
 }
 
 .stats-details-player {
-  border-width: 5px 5px 0px 5px;
+  border-width: 2px 2px 1px 2px;
+}
+
+.round-stats-container {
+  border: 1px solid white;
+  border-radius: 20px;
+  padding: 1px 1px 0 1px;
+  margin: 15px 15px;
 }
 
 .game-header {

@@ -1,4 +1,4 @@
-import logo from '../assets/react.svg'
+import logo from '../assets/versus2.png'
 import '../App.css';
 
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -48,10 +48,12 @@ function Play() {
 
   const [playing, setPlaying] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
+  const [gameEnded, setGameEnded] = useState(false);
 
   const endGame = () => {
 
     const numWinner = checkWinner(users)-1;
+    setGameEnded(true);
 
     fetch("/api/addGame", {
       method: "POST",
@@ -62,7 +64,7 @@ function Play() {
         players: users.map((user) => ({
           name: user.name,
           tries: user.getTotalTries(),
-          time: user.getTimes().reduce((a, b) => a + b, 0),
+          time: user.getTotalTime(),
         })),
         winner: numWinner + 1,
         date: new Date().toISOString(),
@@ -184,17 +186,18 @@ function Play() {
                       
                       {
                         users[0].getTries().map((x, count) => (
-                          <div key={count}>
-                            <div className="stats-item">
-                              <span>Ronda {count+1}: </span>
+                          <div className="round-stats-container" key={count}>
+                            <div className="stats-item stats-item-col">
+                              <span><b>Ronda {count+1}:</b></span>
                             </div>
-                            <div className="stats-item">
-                              <span>Intentos: {player.getTries()[count].length}</span>
+                            <div className="stats-item-col">
+                              <div className="stats-item">
+                                <span>Intentos: {player.getTries()[count].length}</span>
+                              </div>
+                              <div className="stats-item">
+                                <span>Tiempo: {formatTime(player.getTimes()[count])}</span>
+                              </div>
                             </div>
-                            <div className="stats-item">
-                              <span>Tiempo: {formatTime(player.getTimes()[count])}</span>
-                            </div>
-                            <hr />
                           </div>
                         ))
                       }
@@ -246,7 +249,7 @@ function Play() {
             </div>
           )}
 
-          {!playing && (
+          {!playing && !gameEnded && (
             <div className="ingame-section game-stopped">
               <h1>{gameStarted ? "¡Correcto!" : "¡Bienvenido!"}</h1>
               {gameStarted && (
@@ -273,27 +276,55 @@ function Play() {
             </div>
           )}
 
+          {gameEnded && (
+            <div className="ingame-section game-ended">
+              <div className="endinfo-container">
+                <h1>¡Juego terminado!</h1>
+                <div>
+                  <span className={checkWinner(users)-1==0 ? "textBold" : ""}>{users[0].name}</span> <img src={logo} className="versus-logo" alt="logo" /> <span className={checkWinner(users)-1==1 ? "textBold" : ""}>{users[1].name}</span>
+                </div>
+                <div>
+                  <span>Intentos: </span>
+                  <span>{users[0].getTotalTries()} <i>vs</i> {users[1].getTotalTries()}</span>
+                </div>
+                <div>
+                  <span>Tiempo: </span>
+                  <span>{formatTime(users[0].getTotalTime())} <i>vs</i> {formatTime(users[1].getTotalTime())}</span>
+                </div>
+                <div>
+                  <span>Puedes ver la información de cada ronda en el panel izquierdo</span>
+                </div>
+                <div>
+                  <span><b>{checkWinner(users) === 0 ? (<i>Empate</i>) : `Ganador: ${users[checkWinner(users) - 1].name}`}</b></span>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="ingame-numberhistory">
             
             <div className="numberhistory-container">
-              <h1 className="title-section">Historial</h1>
-              <ul>
-                  
-                {
-                currentPlayer?.getCurrentTries()?.length==0 && (
-                  <li className="ingame-numberhistory-item">No hay historial</li>
-                )
-                }
+              {!gameEnded && (
+                <>
+                  <h1 className="title-section">Historial</h1>
+                  <ul>
+                      
+                    {
+                    currentPlayer?.getCurrentTries()?.length==0 && (
+                      <li className="ingame-numberhistory-item">No hay historial</li>
+                    )
+                    }
 
-                {
-                currentPlayer?.getCurrentTries()?.map((tryy, index) => (
-                  <li className="ingame-numberhistory-item" key={index}>{tryy}</li>
-                ))
-                }
-                  
-              </ul>
+                    {
+                    currentPlayer?.getCurrentTries()?.map((tryy, index) => (
+                      <li className="ingame-numberhistory-item" key={index}>{tryy}</li>
+                    ))
+                    }
+                      
+                  </ul>
+                </>
+              )}
             </div>
-            
             
           </div>
         </div>

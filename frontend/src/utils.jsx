@@ -27,8 +27,8 @@ export function checkWinner(users) {
 
   if (tries1 == tries2)
   {
-    const times1 = users[0].getTimes().reduce((a, b) => a + b, 0);
-    const times2 = users[1].getTimes().reduce((a, b) => a + b, 0);
+    const times1 = users[0].getTotalTime();
+    const times2 = users[1].getTotalTime();
 
     if (times1 == times2) return 0;
     if (times1 < times2) return 1;

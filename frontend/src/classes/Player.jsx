@@ -41,6 +41,10 @@ class Player {
     return this.tries[0].length + this.tries[1].length + this.tries[2].length;
   }
 
+  getTotalTime() {
+    return this.times.reduce((a, b) => a + b, 0);
+  }
+
   getOtherId() {
     return this.id == 0 ? 1 : 0;
   }
