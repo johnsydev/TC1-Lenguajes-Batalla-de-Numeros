@@ -1,12 +1,12 @@
-import logo from '../assets/logoapp-oficial.png'
 import '../App.css';
 
 import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom'
 import { Button } from "@/components/ui/button"
-import { formatDate } from '@/utils';
+import { formatDate, formatTime } from '@/utils';
 import { HiOutlineEmojiSad } from "react-icons/hi";
+import logo from '../assets/versus2.png'
 
 function GameHistory() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ function GameHistory() {
   useEffect(() => {
     fetch("/api/getHistory")
       .then((res) => res.json())
-      .then((data) => setData(data.games))
+      .then((data) => setData(data))
       .catch((error) => {
         setError(true);
       });
@@ -36,10 +36,6 @@ function GameHistory() {
 
         {!error && (
           <>
-            <div>
-              <h1>Historial de juegos</h1>
-            </div>
-
             <table className="game-history-table">
                 <thead className="game-history-header">
                     <tr>
@@ -53,10 +49,10 @@ function GameHistory() {
                 <tbody className="game-history-data">
                     {data && data.map((game, index) => (
                         <tr key={index}>
-                            <td>{game.players[0].name} <b>vs</b> {game.players[1].name}</td>
-                            <td>{game.players[0].tries} <b>vs</b> {game.players[1].tries}</td>
-                            <td>{game.players[0].time} <b>vs</b> {game.players[1].time}</td>
-                            <td><b>{game.players[game.winner - 1].name}</b></td>
+                            <td><span className={game.winner-1==0 ? "textBold" : ""}>{game.players[0].name}</span> <img src={logo} className="versus-logo" alt="logo" /> <span className={game.winner-1==1 ? "textBold" : ""}>{game.players[1].name}</span></td>
+                            <td>{game.players[0].tries} <i>vs</i> {game.players[1].tries}</td>
+                            <td>{formatTime(game.players[0].time)} <i>vs</i> {formatTime(game.players[1].time)}</td>
+                            <td>{game.players[game.winner - 1].name}</td>
                             <td>{formatDate(new Date(game.date))}</td>
                         </tr>
                     ))}

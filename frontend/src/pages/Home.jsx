@@ -28,7 +28,7 @@ function Home() {
           Historial de juegos
         </Button>
 
-        <p>{!data ? "Loading..." : data}</p>
+        <p className="server-status">{!data ? "Conectando al servidor..." : data}</p>
       </header>
     </div>
   );

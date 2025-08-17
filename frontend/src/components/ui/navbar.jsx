@@ -7,7 +7,7 @@ export default function Navbar() {
             <Link to="/new">Nuevo juego</Link>
         </div>
         <div className="navtitle">
-            Batalla de Números
+            <Link to="/">Batalla de Números</Link>
         </div>
         <div className="navlinks">
             <Link to="/history">Historial</Link>

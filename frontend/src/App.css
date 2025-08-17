@@ -307,3 +307,24 @@ nav {
   margin-bottom: 30px;
   text-align: center;
 }
+
+.versus-logo {
+  width: 24px;
+  height: 60px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 5px 0 5px;
+}
+
+.server-status {
+  color: green;
+  margin-top: 40px;
+}
+
+.server-status:hover {
+  text-shadow: 1px 0 3px lightgreen;
+}
+
+.textBold {
+  font-weight: bold;
+}

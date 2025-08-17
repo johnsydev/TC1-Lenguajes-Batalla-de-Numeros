@@ -1,4 +1,5 @@
 const express = require("express");
+const fs = require("fs")
 
 const PORT = process.env.PORT || 3001;
 
@@ -9,22 +10,26 @@ app.get("/api", (req, res) => {
 });
 
 app.get("/api/getHistory", (req, res) => {
-  res.json(
-    { games: [
-        {
-            players: [{name: "Johnsy", tries: 17, time:234}, {name: "David", tries: 25, time:253}], 
-            winner: 1,
-            date: new Date("2025-08-15")
-        },
-        {
-            players: [{name: "Sergio", tries: 32, time:302}, {name: "Erin", tries: 26, time:287}], 
-            winner: 2,
-            date: new Date("2025-08-16")
-        }
-    ] }
-);
+  try {
+    const data = fs.readFileSync("data.json", "utf-8");
+    const info = JSON.parse(data);
+    res.json(info.games);
+  } catch (err) {
+    res.status(500).json({ error: "No se pudo leer el archivo" });
+  }
 });
 
+app.post("/api/addGame", (req, res) => {
+  try {
+    const data = fs.readFileSync("data.json", "utf-8");
+    const info = JSON.parse(data);
+    info.games.push(req.body);
+    fs.writeFileSync("data.json", JSON.stringify(info, null, 2));
+    res.json({ status: "ok", message: "Juego agregado exitosamente" });
+  } catch (err) {
+    res.status(500).json({ status: "error", error: "No se pudo leer el archivo" });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
