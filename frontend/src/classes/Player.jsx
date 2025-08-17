@@ -1,9 +1,12 @@
 class Player {
+  static uid = 0;
   constructor(name) {
+    this.id = Player.uid;
     this.name = name;
     this.tries = [[], [], []];
     this.times = [0, 0, 0];
     this.roundActual = 1;
+    Player.uid++;
   }
 
   addTry(tryValue) {
@@ -36,6 +39,14 @@ class Player {
 
   getTotalTries() {
     return this.tries[0].length + this.tries[1].length + this.tries[2].length;
+  }
+
+  getOtherId() {
+    return this.id == 0 ? 1 : 0;
+  }
+
+  getLastRoundInfo() {
+    return { tries: this.tries[this.roundActual-2].length, time: this.times[this.roundActual-2] }
   }
 }
 

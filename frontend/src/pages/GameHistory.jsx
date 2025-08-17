@@ -12,12 +12,15 @@ function GameHistory() {
   const navigate = useNavigate();
 
   const [data, setData] = useState(null);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch("/api/getHistory")
       .then((res) => res.json())
-      .then((data) => setData(data))
+      .then((data) => {
+        setData(data);
+        setError(false);
+      })
       .catch((error) => {
         setError(true);
       });
@@ -27,14 +30,14 @@ function GameHistory() {
     <div className="App">
       <header className="App-header">
 
-        {error && (
+        {error==true && (
           <div className="error-server-message">
             <HiOutlineEmojiSad className="sad-icon" />
             <div>No se pudo conectar con el servidor, por favor intente más tarde.</div>
           </div>
         )}
 
-        {!error && (
+        {error==false && (
           <>
             <table className="game-history-table">
                 <thead className="game-history-header">

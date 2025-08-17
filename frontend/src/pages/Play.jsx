@@ -19,7 +19,7 @@ function Play() {
   }, [location, navigate]);
 
   if (!location.state?.player1) {
-    return null; // evita renderizar basura mientras redirige
+    return null;
   }
 
   //inputs and vars
@@ -45,6 +45,9 @@ function Play() {
   const [isRunning, setIsRunning] = useState(false);
   const timerRunning = useRef(false);
   let timeInterval = useRef(null);
+
+  const [playing, setPlaying] = useState(false);
+  const [gameStarted, setGameStarted] = useState(false);
 
   const endGame = () => {
 
@@ -104,7 +107,7 @@ function Play() {
   };
 
   useEffect(() => {
-    if (currentPlayer) {
+    if (currentPlayer && gameStarted && playing) {
       startRound();
     }
   }, [currentPlayer]);
@@ -118,7 +121,7 @@ function Play() {
       setAlertTitle("Correcto!");
       currentPlayer.addTime(timer);
       stopTimer();
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      setPlaying(false);
       nextPlayer();
     }
     if (!alertVisible) setAlertVisible(true);
@@ -147,6 +150,19 @@ function Play() {
     clearInterval(timeInterval.current);
   };
 
+  const handleResume = () => {
+
+    setPlaying(true);
+    if (!gameStarted)
+    {
+      setCurrentPlayer(users[0]);
+      setGameStarted(true);
+      startRound();
+    }
+    else {
+      startRound();
+    }
+  };
 
   return (
     <div className="App">
@@ -192,41 +208,70 @@ function Play() {
             </div>
           </div>
 
-          <div className="ingame-section">
-            <div className="game-header">
-              <h1>Ronda {currentPlayer.getCurrentRound()}</h1>
-              <h2>Turno de: {currentPlayer.name}</h2>
-            </div>
-            <div className="info-container">
-              <div className="info-tries">
-                <span>Intentos: </span>
-                <span>{count}</span>
+          {playing && (
+            <div className="ingame-section">
+              <div className="game-header">
+                <h1>Ronda {currentPlayer.getCurrentRound()}</h1>
+                <h2>Turno de: {currentPlayer.name}</h2>
               </div>
-              <div className="info-time">
-                <span>Tiempo: </span>
-                <span>{formatTime(timer)}</span>
+              <div className="info-container">
+                <div className="info-tries">
+                  <span>Intentos: </span>
+                  <span>{count}</span>
+                </div>
+                <div className="info-time">
+                  <span>Tiempo: </span>
+                  <span>{formatTime(timer)}</span>
+                </div>
+
+              </div>
+
+              <Input className="btn-menu btn-game" ref={inputRef} placeholder="Número" value={numberInput} onChange={(e) => setNumberInput(e.target.value)} />
+              <button className="btn-menu btn-game" onClick={handleNumber}>
+                Comprobar
+              </button>
+
+              <div className="info-tips">
+
+                {alertVisible && (
+                  <Alert className="bg-transparent text-white border border-white">
+                    <AlertTitle>{alertTitle}</AlertTitle>
+                    <AlertDescription>
+                      {alertMsg}
+                    </AlertDescription>
+                  </Alert>
+                )}
               </div>
 
             </div>
+          )}
 
-            <Input className="btn-menu btn-game" ref={inputRef} placeholder="Número" value={numberInput} onChange={(e) => setNumberInput(e.target.value)} />
-            <button className="btn-menu btn-game" onClick={handleNumber}>
-              Comprobar
-            </button>
-
-            <div className="info-tips">
-
-              {alertVisible && (
-                <Alert className="bg-transparent text-white border border-white">
-                  <AlertTitle>{alertTitle}</AlertTitle>
-                  <AlertDescription>
-                    {alertMsg}
-                  </AlertDescription>
-                </Alert>
+          {!playing && (
+            <div className="ingame-section game-stopped">
+              <h1>{gameStarted ? "¡Correcto!" : "¡Bienvenido!"}</h1>
+              {gameStarted && (
+                <div className="info-container">
+                  <div className="info-tries">
+                    <span>Intentos: </span>
+                    <span>{users[currentPlayer.getOtherId()].getLastRoundInfo().tries}</span>
+                  </div>
+                  <div className="info-time">
+                    <span>Tiempo: </span>
+                    <span>{formatTime(users[currentPlayer.getOtherId()].getLastRoundInfo().time)}</span>
+                  </div>
+                </div>
+              )}
+              <p>El juego está en pausa. Reanuda para continuar jugando.</p>
+              <p>Ronda: {currentPlayer.getCurrentRound()}</p>
+              <p>Es turno de: {currentPlayer.name}</p>
+              {!gameStarted && (
+                <button className="btn-menu btn-game" onClick={handleResume}>Iniciar juego</button>
+              )}
+              {gameStarted && (
+                <button className="btn-menu btn-game" onClick={handleResume}>Iniciar turno</button>
               )}
             </div>
-
-          </div>
+          )}
 
           <div className="ingame-numberhistory">
             
