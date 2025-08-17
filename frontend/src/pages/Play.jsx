@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { useState, useEffect, useRef } from 'react';
-import { getTip, formatTime } from '@/utils';
+import { getTip, formatTime, checkWinner } from '@/utils';
 import Player from '@/classes/Player'
 
 function Play() {
@@ -40,33 +40,89 @@ function Play() {
 
   const [currentPlayer, setCurrentPlayer] = useState(users[0]);
 
-
   //cronometer
   const [timer, setTimer] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const timerRunning = useRef(false);
   let timeInterval = useRef(null);
 
-  useEffect(() => {
+  const endGame = () => {
+
+    const numWinner = checkWinner(users)-1;
+
+    fetch("/api/addGame", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        players: users.map((user) => ({
+          name: user.name,
+          tries: user.getTotalTries(),
+          time: user.getTimes().reduce((a, b) => a + b, 0),
+        })),
+        winner: numWinner + 1,
+        date: new Date().toISOString(),
+      }),
+    });
+
+    console.log("Partida guardada");
+  };
+
+  const nextPlayer = () => {
+    //clean data
+    setGuess(null);
+    setCount(0);
+    setNumberInput("");
+    setAlertVisible(false);
+    setAlertTitle("Incorrecto");
+    setIsRunning(false);
+    setTimer(0);
+    timerRunning.current = false;
+
+    currentPlayer.addRound();
+
+    if (currentPlayer == users[0]) {
+      setCurrentPlayer(users[1]);
+    }
+    else {
+      if (currentPlayer.getCurrentRound() == 4) {
+        console.log(users);
+        endGame();
+        return;
+      }
+      setCurrentPlayer(users[0]);
+    }
+  };
+
+  const startRound = () => {
     const numero = Math.floor(Math.random() * 100) + 1;
     setGuess(numero);
     startTimer();
     console.log("Número a adivinar:", numero);
     inputRef.current?.focus();
-  }, []);
+  };
 
-  const handleNumber = () => {
+  useEffect(() => {
+    if (currentPlayer) {
+      startRound();
+    }
+  }, [currentPlayer]);
+
+  const handleNumber = async () => {
     if (numberInput == null || numberInput == "") return;
     setCount(count + 1);
+    currentPlayer.addTry(numberInput);
     if (numberInput == guess)
     {
       setAlertTitle("Correcto!");
-      currentPlayer.addTime(formatTime(timer))
+      currentPlayer.addTime(timer);
       stopTimer();
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      nextPlayer();
     }
     if (!alertVisible) setAlertVisible(true);
-    currentPlayer.addTry(numberInput);
-
+    
     const pista = getTip(numberInput, guess);
     setAlertMsg(pista);
     setNumberInput("");
@@ -104,7 +160,7 @@ function Play() {
                 {
                   
                   users.map((player, index) => (
-                    <div className="stats-details-player">
+                    <div key={index} className="stats-details-player">
                       <div className="stats-item stats-item-name">
                         <span>Jugador {index+1}: </span>
                         <span>{player.name}</span>
@@ -112,7 +168,7 @@ function Play() {
                       
                       {
                         users[0].getTries().map((x, count) => (
-                          <>
+                          <div key={count}>
                             <div className="stats-item">
                               <span>Ronda {count+1}: </span>
                             </div>
@@ -120,10 +176,10 @@ function Play() {
                               <span>Intentos: {player.getTries()[count].length}</span>
                             </div>
                             <div className="stats-item">
-                              <span>Tiempo: {player.getTimes()[count]}</span>
+                              <span>Tiempo: {formatTime(player.getTimes()[count])}</span>
                             </div>
                             <hr />
-                          </>
+                          </div>
                         ))
                       }
 
@@ -179,13 +235,13 @@ function Play() {
               <ul>
                   
                 {
-                currentPlayer.getCurrentTries().length==0 && (
+                currentPlayer?.getCurrentTries()?.length==0 && (
                   <li className="ingame-numberhistory-item">No hay historial</li>
                 )
                 }
 
                 {
-                currentPlayer.getCurrentTries().map((tryy, index) => (
+                currentPlayer?.getCurrentTries()?.map((tryy, index) => (
                   <li className="ingame-numberhistory-item" key={index}>{tryy}</li>
                 ))
                 }

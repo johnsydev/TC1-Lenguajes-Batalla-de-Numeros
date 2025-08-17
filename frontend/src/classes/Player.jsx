@@ -2,7 +2,7 @@ class Player {
   constructor(name) {
     this.name = name;
     this.tries = [[], [], []];
-    this.times = ["", "", ""];
+    this.times = [0, 0, 0];
     this.roundActual = 1;
   }
 
@@ -32,6 +32,10 @@ class Player {
 
   getCurrentRound() {
     return this.roundActual;
+  }
+
+  getTotalTries() {
+    return this.tries[0].length + this.tries[1].length + this.tries[2].length;
   }
 }
 

@@ -2,19 +2,51 @@
   "games": [
     {
       "players": [
-        { "name": "Johnsy", "tries": 17, "time": 234 },
-        { "name": "David", "tries": 25, "time": 253 }
+        {
+          "name": "Johnsy",
+          "tries": 17,
+          "time": 234
+        },
+        {
+          "name": "David",
+          "tries": 25,
+          "time": 253
+        }
       ],
       "winner": 1,
       "date": "2025-08-15T00:00:00.000Z"
     },
     {
       "players": [
-        { "name": "Sergio", "tries": 32, "time": 302 },
-        { "name": "Erin", "tries": 26, "time": 287 }
+        {
+          "name": "Sergio",
+          "tries": 32,
+          "time": 302
+        },
+        {
+          "name": "Erin",
+          "tries": 26,
+          "time": 287
+        }
       ],
       "winner": 2,
       "date": "2025-08-16T00:00:00.000Z"
+    },
+    {
+      "players": [
+        {
+          "name": "Jose",
+          "tries": 16,
+          "time": 35
+        },
+        {
+          "name": "Daniel",
+          "tries": 25,
+          "time": 65
+        }
+      ],
+      "winner": 1,
+      "date": "2025-08-17T18:23:17.718Z"
     }
   ]
 }

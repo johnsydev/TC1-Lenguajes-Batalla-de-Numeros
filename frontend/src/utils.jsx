@@ -20,3 +20,22 @@ export function formatDate(date) {
   const fechaFormateada = `${dia}/${mes}/${anio}`;
   return fechaFormateada;
 }
+
+export function checkWinner(users) {
+  const tries1 = users[0].getTotalTries();
+  const tries2 = users[1].getTotalTries();
+
+  if (tries1 == tries2)
+  {
+    const times1 = users[0].getTimes().reduce((a, b) => a + b, 0);
+    const times2 = users[1].getTimes().reduce((a, b) => a + b, 0);
+
+    if (times1 == times2) return 0;
+    if (times1 < times2) return 1;
+    return 2;
+  }
+
+  if (tries1 < tries2) return 1;
+  return 2;
+
+}
