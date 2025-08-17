@@ -34,7 +34,7 @@ function New() {
     <div className="App">
       <header className="App-header">
         <div className="input-names-container">
-          <Input ref={name1} className="input-name" placeholder="Name 1" />
+          <Input ref={name1} className="input-name" placeholder="Name 1" autoFocus />
           <img src={logo} className="App-logo" alt="logo" />
           <Input ref={name2} className="input-name" placeholder="Name 2" />
         </div>

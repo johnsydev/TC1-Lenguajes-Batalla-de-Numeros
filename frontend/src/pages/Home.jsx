@@ -1,11 +1,21 @@
 import logo from '../assets/logoapp-oficial.png'
 import '../App.css';
 
+import { useEffect, useState } from 'react';
+
 import { useNavigate } from 'react-router-dom'
 import { Button } from "@/components/ui/button"
 
 function Home() {
   const navigate = useNavigate();
+
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    fetch("/api")
+      .then((res) => res.json())
+      .then((data) => setData(data.message));
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +27,8 @@ function Home() {
         <Button className="btn-menu" onClick={() => navigate("/history")}>
           Historial de juegos
         </Button>
+
+        <p>{!data ? "Loading..." : data}</p>
       </header>
     </div>
   );

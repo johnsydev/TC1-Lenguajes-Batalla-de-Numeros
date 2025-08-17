@@ -262,3 +262,48 @@ nav {
   font-size: 36px;
   color: white;
 }
+
+
+
+/* GAME HISTORY */
+.game-history-table {
+  width: 70%;
+  margin-top: 30px;
+  border-collapse: collapse;
+}
+
+.game-history-header {
+  background: linear-gradient(90deg, #e47154, #ec9c60);
+  border-radius: 20px 20px 0 0;
+  color: white;
+  text-align: center;
+}
+
+.game-history-header th {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+
+.game-history-data tr:nth-child(even) {
+  background-color: rgb(41, 41, 41);
+}
+.game-history-data td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.error-server-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.sad-icon {
+  color: #e47154;
+  font-size: 100px;
+  margin-bottom: 30px;
+  text-align: center;
+}

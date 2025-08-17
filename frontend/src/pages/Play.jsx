@@ -50,7 +50,6 @@ function Play() {
   useEffect(() => {
     const numero = Math.floor(Math.random() * 100) + 1;
     setGuess(numero);
-    //currentPlayer.addRound();
     startTimer();
     console.log("Número a adivinar:", numero);
     inputRef.current?.focus();

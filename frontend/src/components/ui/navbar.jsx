@@ -4,13 +4,13 @@ export default function Navbar() {
   return (
     <nav>
         <div className="navlinks">
-            <Link to="/new">New game</Link>
+            <Link to="/new">Nuevo juego</Link>
         </div>
         <div className="navtitle">
-            Numbers Battle
+            Batalla de Números
         </div>
         <div className="navlinks">
-            <Link to="/history">History</Link>
+            <Link to="/history">Historial</Link>
         </div>
     </nav>
   );
