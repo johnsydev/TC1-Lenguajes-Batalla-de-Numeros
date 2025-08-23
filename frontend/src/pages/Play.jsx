@@ -70,8 +70,6 @@ function Play() {
         date: new Date().toISOString(),
       }),
     });
-
-    console.log("Partida guardada");
   };
 
   const nextPlayer = () => {
@@ -92,7 +90,6 @@ function Play() {
     }
     else {
       if (currentPlayer.getCurrentRound() == 4) {
-        console.log(users);
         endGame();
         return;
       }
@@ -104,7 +101,6 @@ function Play() {
     const numero = Math.floor(Math.random() * 100) + 1;
     setGuess(numero);
     startTimer();
-    console.log("Número a adivinar:", numero);
     inputRef.current?.focus();
   };
 
@@ -229,7 +225,7 @@ function Play() {
 
               </div>
 
-              <Input className="btn-menu btn-game" ref={inputRef} placeholder="Número" value={numberInput} onChange={(e) => setNumberInput(e.target.value)} />
+              <Input type="number" className="btn-menu btn-game" ref={inputRef} placeholder="Número" value={numberInput} onChange={(e) => setNumberInput(e.target.value)} />
               <button className="btn-menu btn-game" onClick={handleNumber}>
                 Comprobar
               </button>

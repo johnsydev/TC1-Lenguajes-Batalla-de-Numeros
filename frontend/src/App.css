@@ -97,6 +97,15 @@
 }
   */
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .btn-menu {
   display: block;
   text-align: center;
@@ -183,6 +192,9 @@ nav {
 }
 
 .navtitle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 28px;
   font-weight: bold;
 }
