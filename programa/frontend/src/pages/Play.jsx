@@ -8,6 +8,8 @@ import { useState, useEffect, useRef } from 'react';
 import { getTip, formatTime, checkWinner } from '@/utils';
 import Player from '@/classes/Player'
 
+const API_URL = import.meta.env.VITE_API_URL || "/api";
+
 function Play() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -55,7 +57,7 @@ function Play() {
     const numWinner = checkWinner(users)-1;
     setGameEnded(true);
 
-    fetch("/api/addGame", {
+    fetch(`${API_URL}/addGame`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

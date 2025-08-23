@@ -6,12 +6,14 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { Button } from "@/components/ui/button"
 
+const API_URL = import.meta.env.VITE_API_URL || "/api";
+
 function Home() {
   const navigate = useNavigate();
 
   const [data, setData] = useState(null);
   useEffect(() => {
-    fetch("/api")
+    fetch(`${API_URL}/`)
       .then((res) => res.json())
       .then((data) => setData(data.message));
   }, []);

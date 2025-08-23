@@ -8,6 +8,8 @@ import { formatDate, formatTime } from '@/utils';
 import { HiOutlineEmojiSad } from "react-icons/hi";
 import logo from '../assets/versus2.png'
 
+const API_URL = import.meta.env.VITE_API_URL || "/api";
+
 function GameHistory() {
   const navigate = useNavigate();
 
@@ -15,7 +17,7 @@ function GameHistory() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("/api/getHistory")
+    fetch(`${API_URL}/getHistory`)
       .then((res) => res.json())
       .then((data) => {
         setData(data);
