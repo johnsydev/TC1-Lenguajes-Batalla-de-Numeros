@@ -5,6 +5,8 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
+app.use(cors());
+
 app.use(express.json());
 
 // Ruta inicial, petición GET, devuelve un mensaje para saber que el servidor está encendido.

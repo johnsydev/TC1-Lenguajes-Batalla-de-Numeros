@@ -162,6 +162,11 @@ input[type=number] {
   gap: 32px;
 }
 
+.input-name::placeholder {
+  color: rgb(208, 208, 208);
+  opacity: 1;
+}
+
 .btn-play {
   display: flex;
   justify-content: center;
