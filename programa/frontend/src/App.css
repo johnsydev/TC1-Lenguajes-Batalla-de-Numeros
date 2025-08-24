@@ -252,6 +252,10 @@ nav {
   text-align: center;
 }
 
+.numberhistory-idx-0 {
+  border-radius: 0 0 25px 25px;
+}
+
 .info-tips {
   padding: 10px;
   margin-top: 40px;
@@ -260,7 +264,6 @@ nav {
 
 /* STATS */
 .stats-container {
-  border: 1px solid white;
   border-radius: 25px 25px 0 0;
   margin-bottom: 20px;
   width: 50%;
@@ -269,6 +272,10 @@ nav {
 .numberhistory-container {
   margin-bottom: 20px;
   width: 50%;
+}
+
+.numberhistory-idx-0 {
+  border-radius: 0 0 25px 25px;
 }
 
 .title-section {
@@ -299,8 +306,13 @@ nav {
   font-weight: bold;
 }
 
-.stats-details-player {
-  border-width: 2px 2px 1px 2px;
+.stats-details-player-0 {
+  border-width: 1px 1px 1px 1px;
+}
+
+.stats-details-player-1 {
+  border-width: 1px 1px 1px 1px;
+  border-radius: 0 0 25px 25px;
 }
 
 .round-stats-container {

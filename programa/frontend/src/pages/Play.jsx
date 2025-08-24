@@ -208,7 +208,7 @@ function Play() {
                 {
                   
                   users.map((player, index) => (
-                    <div key={index} className="stats-details-player">
+                    <div key={index} className={`stats-details-player-${index}`}>
                       <div className="stats-item stats-item-name">
                         <span>Jugador {index+1}: </span>
                         <span>{player.name}</span>
@@ -245,7 +245,7 @@ function Play() {
             <div className="ingame-section">
               <div className="game-header">
                 <h1>Ronda {currentPlayer.getCurrentRound()}</h1>
-                <h2>Turno de: {currentPlayer.name}</h2>
+                <h2><b>Turno de: {currentPlayer.name}</b></h2>
               </div>
               <div className="info-container">
                 <div className="info-tries">
@@ -296,7 +296,7 @@ function Play() {
               )}
               <p>El juego está en pausa. Reanuda para continuar jugando.</p>
               <p>Ronda: {currentPlayer.getCurrentRound()}</p>
-              <p>Es turno de: {currentPlayer.name}</p>
+              <p><b>Es turno de: {currentPlayer.name}</b></p>
               {!gameStarted && (
                 <button className="btn-menu btn-game" onClick={handleResume}>Iniciar juego</button>
               )}
@@ -341,13 +341,13 @@ function Play() {
                       
                     {
                     currentPlayer?.getCurrentTries()?.length==0 && (
-                      <li className="ingame-numberhistory-item">No hay historial</li>
+                      <li className="ingame-numberhistory-item numberhistory-idx-0">No hay historial</li>
                     )
                     }
 
                     {
                     currentPlayer?.getCurrentTries()?.map((tryy, index) => (
-                      <li className="ingame-numberhistory-item" key={index}>{tryy}</li>
+                      <li className={`ingame-numberhistory-item numberhistory-idx-${currentPlayer?.getCurrentTries().length-1-index}`} key={index}>{tryy}</li>
                     ))
                     }
                       
