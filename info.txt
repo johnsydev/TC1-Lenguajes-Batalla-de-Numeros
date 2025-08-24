@@ -1,0 +1,7 @@
+a. Nombre del curso: Lenguajes de Programación, GR60
+b. Número de semestre y año lectivo: Segundo semestre, 2025
+c. Nombre del Estudiante: Johnsy Steven López Aguilar
+d. Número de carnet del estudiante: 2024178835
+e. Número de tarea: #1
+f. Fecha de entrega: 24/08/2025
+g. Estatus de la entrega (debe ser CONGRUENTE con la solución entregada): [Excelente] 
