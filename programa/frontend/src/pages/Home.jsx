@@ -8,15 +8,11 @@ import { Button } from "@/components/ui/button"
 
 const API_URL = import.meta.env.VITE_API_URL || "/api";
 
+/*
+  Página de inicio.
+*/
 function Home() {
   const navigate = useNavigate();
-
-  const [data, setData] = useState(null);
-  useEffect(() => {
-    fetch(`${API_URL}/`)
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []);
 
   return (
     <div className="App">
@@ -29,8 +25,7 @@ function Home() {
         <Button className="btn-menu" onClick={() => navigate("/history")}>
           Historial de juegos
         </Button>
-
-        <p className="server-status">{!data ? "Conectando al servidor..." : data}</p>
+        
       </header>
     </div>
   );

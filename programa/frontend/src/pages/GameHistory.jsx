@@ -10,6 +10,9 @@ import logo from '../assets/versus2.png'
 
 const API_URL = import.meta.env.VITE_API_URL || "/api";
 
+/*
+  Página para ver el historial de juegos.
+*/
 function GameHistory() {
   const navigate = useNavigate();
 

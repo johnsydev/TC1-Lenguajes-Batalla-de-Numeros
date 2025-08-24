@@ -8,6 +8,9 @@ import { Button } from '@/components/ui/button';
 
 import { useRef } from 'react'
 
+/*
+  Página para agregar los nombres de los jugadores e iniciar partida.
+*/
 function New() {
   const navigate = useNavigate();
   const name1 = useRef(null);

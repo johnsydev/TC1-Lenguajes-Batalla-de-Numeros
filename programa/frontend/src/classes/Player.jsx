@@ -5,6 +5,8 @@
 */
 class Player {
   static uid = 0;
+  
+  // Constructor, no recibe parámetros.
   constructor(name) {
     this.id = Player.uid;
     this.name = name;

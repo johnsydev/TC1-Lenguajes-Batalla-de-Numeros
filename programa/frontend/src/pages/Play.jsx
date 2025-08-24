@@ -10,6 +10,10 @@ import Player from '@/classes/Player'
 
 const API_URL = import.meta.env.VITE_API_URL || "/api";
 
+/*
+  Página para jugar.
+  Contiene toda la lógica y flujo del juego.
+*/
 function Play() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,6 +56,10 @@ function Play() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameEnded, setGameEnded] = useState(false);
 
+  /*
+  Función para finalizar el juego.
+  Envía la información del juego al backend.
+  */
   const endGame = () => {
 
     const numWinner = checkWinner(users)-1;
@@ -74,6 +82,11 @@ function Play() {
     });
   };
 
+  /*
+  Función para cambiar de turno de jugador
+  Reinicia las variables necesarias y continúa con el siguiente jugador.
+  Si se acabaron las 3 rondas, se envía a la función endGame.
+  */
   const nextPlayer = () => {
     //clean data
     setGuess(null);
@@ -99,6 +112,10 @@ function Play() {
     }
   };
 
+  /*
+  Función para iniciar un turno.
+  Establece el número aleatorio e inicia el cronómetro.
+  */
   const startRound = () => {
     const numero = Math.floor(Math.random() * 100) + 1;
     setGuess(numero);
@@ -106,12 +123,18 @@ function Play() {
     inputRef.current?.focus();
   };
 
+  // Inicia los turnos cada vez que cambia un jugador de ronda.
   useEffect(() => {
     if (currentPlayer && gameStarted && playing) {
       startRound();
     }
   }, [currentPlayer]);
 
+  /*
+  Función para obtener el número que se ingresa para intentar adivinar.
+  Agrega el intento, muestra mensajes de ayuda.
+  Si se adivina el número detiene el cronómetro y pasa al siguiente turno con nextPlayer.
+  */
   const handleNumber = async () => {
     if (numberInput == null || numberInput == "") return;
     setCount(count + 1);
@@ -132,6 +155,9 @@ function Play() {
     inputRef.current?.focus();
   };
 
+  /*
+  Función para iniciar el cronómetro.
+  */
   const startTimer = () => {
     if (timerRunning.current) return;
     if (isRunning) return;
@@ -143,6 +169,9 @@ function Play() {
     }, 1000);
   };
 
+  /*
+  Función para detener el cronómetro.
+  */
   const stopTimer = () => {
     if (!isRunning) return;
     timerRunning.current = false;
@@ -150,6 +179,9 @@ function Play() {
     clearInterval(timeInterval.current);
   };
 
+  /*
+  Función para iniciar la ronda y salir de la pantalla de pausa.
+  */
   const handleResume = () => {
 
     setPlaying(true);

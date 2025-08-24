@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
 
+/*
+  Barra superior con links.
+  Para mostrar en todas las páginas del juego.
+*/
 export default function Navbar() {
   return (
     <nav>

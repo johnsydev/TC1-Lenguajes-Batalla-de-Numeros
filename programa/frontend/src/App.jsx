@@ -11,9 +11,11 @@ import Play from './pages/Play.jsx'
 import NotFound from './pages/NotFound.jsx'
 import GameHistory from './pages/GameHistory.jsx'
 
+/*
+  Componente principal de la aplicación.
+  Define las rutas a todas las páginas existentes de la aplicación.
+*/
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <BrowserRouter>
       <Navbar />
