@@ -16,3 +16,30 @@
 **f. Fecha de entrega:** 24/08/2025
 
 **g. Estatus de la entrega (debe ser CONGRUENTE con la solución entregada):** [Excelente] 
+
+
+# Otra información relevante
+
+## Ejecución de frontend
+
+El frontend se ejecuta con los siguientes comandos:
+
+```
+cd programa/frontend
+npm install
+npm run dev
+```
+
+## Ejecución de backend
+
+El backend se ejecuta con los siguientes comandos:
+
+```
+cd programa/backend
+npm install
+npm start
+```
+
+## Jugar en línea
+
+Enlace a juego online: https://batalla-de-numeros-johnsydev.netlify.app

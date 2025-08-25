@@ -95,6 +95,22 @@
       ],
       "winner": 2,
       "date": "2025-08-24T04:42:06.119Z"
+    },
+    {
+      "players": [
+        {
+          "name": "Luis",
+          "tries": 21,
+          "time": 54
+        },
+        {
+          "name": "Johnsy",
+          "tries": 18,
+          "time": 41
+        }
+      ],
+      "winner": 2,
+      "date": "2025-08-24T16:19:09.428Z"
     }
   ]
 }
